@@ -12,6 +12,8 @@ import { ITask } from "./interface/ITask";
 export function App() {
   const [inputTask, setInputTask] = useState("");
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [numberTasksDone, setNumberTasksDone] = useState<number>(0);
+  const [numberTasks, setNumberTasks] = useState<number>(0);
 
   function handleNewTextInputChange(event: ChangeEvent<HTMLInputElement>) {
     setInputTask(event.target.value);
@@ -31,12 +33,36 @@ export function App() {
         done: false,
       };
 
-      setTasks(() => [...tasks, newTask]);
+      setTasks((prevTasks) => [...prevTasks, newTask]);
 
       setInputTask("");
 
-      console.log(tasks);
+      setNumberTasks((prev) => prev + 1);
     }
+  }
+
+  function handleCompleteTask(taskComplete: ITask) {
+    const findIndexTaskToggle = tasks.findIndex((task) => {
+      return task.id === taskComplete.id;
+    });
+
+    tasks[findIndexTaskToggle].done = !tasks[findIndexTaskToggle].done;
+    setTasks(tasks);
+    setNumberTasksDone((prev) =>
+      tasks[findIndexTaskToggle].done ? prev + 1 : prev - 1
+    );
+  }
+
+  function handleDeleteTask(taskDeleted: ITask) {
+    setNumberTasks((prev) => prev - 1);
+
+    setNumberTasksDone((prev) => (taskDeleted.done === true ? prev - 1 : prev));
+
+    const updateTasks = tasks.filter((task) => {
+      return task.id !== taskDeleted.id;
+    });
+
+    setTasks([...updateTasks]);
   }
 
   return (
@@ -64,11 +90,11 @@ export function App() {
           <div className={style.info}>
             <div className={style.created}>
               <span>Tarefas criadas</span>
-              <span>10</span>
+              <span>{numberTasks}</span>
             </div>
             <div className={style.done}>
               <span>Concluídas</span>
-              <span>10</span>
+              <span>{numberTasksDone}</span>
             </div>
           </div>
           {tasks.length == 0 ? (
@@ -82,9 +108,9 @@ export function App() {
               {tasks.map((task) => (
                 <Task
                   key={task.id}
-                  content={task.content}
-                  id={task.id}
-                  done={task.done}
+                  task={task}
+                  handleCompleted={handleCompleteTask}
+                  handleDelete={handleDeleteTask}
                 />
               ))}
             </div>

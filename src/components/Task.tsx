@@ -3,12 +3,25 @@ import { useState } from "react";
 import { ITask } from "../interface/ITask";
 import style from "./Task.module.css";
 
-export function Task({ content, id, done }: ITask) {
+interface ITaskProps {
+  task: ITask;
+  handleCompleted: (task: ITask) => void;
+  handleDelete: (task: ITask) => void;
+}
+
+export function Task({ task, handleCompleted, handleDelete }: ITaskProps) {
   const [isTaskComplete, setIsTaskComplete] = useState(false);
 
   function toggleCheck() {
     setIsTaskComplete((isTaskComplete) => !isTaskComplete);
-    console.log(isTaskComplete);
+
+    const taskToggle: ITask = {
+      id: task.id,
+      content: task.content,
+      done: isTaskComplete,
+    };
+
+    handleCompleted(taskToggle);
   }
 
   return (
@@ -22,8 +35,11 @@ export function Task({ content, id, done }: ITask) {
           <div className={style.iconCheckOFF}></div>
         )}
       </button>
-      <p className={isTaskComplete ? style.textComplete : ""}>{content}</p>
-      <button title="Excluir" className={style.trash}>
+      <p className={isTaskComplete ? style.textComplete : ""}>{task.content}</p>
+      <button
+        title="Excluir"
+        className={style.trash}
+        onClick={() => handleDelete(task)}>
         <Trash weight="bold" />
       </button>
     </div>
