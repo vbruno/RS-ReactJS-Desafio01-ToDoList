@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 12px;
+
+  background-color: var(--gray-500);
+  border: 1px solid var(--gray-400);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+}
+
+p {
+  width: 632px;
+  height: 40px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+
+  color: var(--gray-100);
+}
+
+.textComplete {
+  color: var(--gray-300);
+  text-decoration: line-through;
+}
+
+.btCheck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+
+  font-size: 24px;
+
+  background: var(--gray-500);
+  color: var(--blue);
+
+  border: none;
+
+  cursor: pointer;
+}
+
+.iconCheckOFF {
+  width: 17.45px;
+  height: 17.45px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+}
+
+.iconCheckOFF:hover {
+  border: 2px solid var(--blue-dark);
+}
+
+.iconCheckON {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 3px;
+
+  width: 17.45px;
+  height: 17.45px;
+  background: var(--purple-dark);
+  border-radius: 50%;
+}
+
+.iconCheckON:hover {
+  background: var(--purple);
+}
+
+.trash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+
+  font-size: 16px;
+
+  color: var(--gray-300);
+}
+
+.trash:hover {
+  color: var(--danger);
+  background-color: var(--gray-400);
+  cursor: pointer;
+}

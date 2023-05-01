@@ -183,3 +183,12 @@ main {
 
   color: var(--gray-300);
 }
+
+.listTasks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  width: 736px;
+}
